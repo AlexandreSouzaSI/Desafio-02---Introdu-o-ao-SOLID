@@ -15,7 +15,7 @@ class CreateUserController {
     return response.status(201).json(user)
 
     } catch (Error) {
-      return response.status(400).json({ error: "Erro ao criar o Usuario"})
+      return response.status(400).json({ error: "Email já utilizado"})
     }
   }
 }

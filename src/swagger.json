@@ -1,0 +1,272 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "User Documentation",
+        "description": "This is an API User",
+        "version": "1.0.0",
+        "contact": {
+            "email": "alemoura23@hotmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+          "post": {
+            "tags": ["Users"],
+            "summary": "Criando novo usuario",
+            "description": "Criando um novo usuario",
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "e-mail": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                      "name": "Alexandre",
+                      "e-mail": "alemoura23@hotmail.com"
+                    }
+                  }
+                }
+              }
+            },
+            "responses": {
+              "201": {
+                "description": "Criado com sucesso"
+              },
+              "500": {
+                "description": "email já existe"
+              }
+            }
+          },
+          "get": {
+            "tags": ["Users"],
+            "summary": "Listando",
+            "description": "Somente admin pode acessas",
+            "parameters": [
+              {
+                "- in": "path",
+                "name": "userId",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true,
+                "minimum": 1,
+                "description": "Parameter description in Markdown."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Operação Realizada com Sucesso",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "admin": {
+                            "type": "boolean"
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": { "type": "string" },
+                          "email": { "type": "string" },
+                          "created_at": { "type": "date" },
+                          "updated_at": { "type": "date" }
+                        },
+                        "example": [
+                          {
+                            "admin": true,
+                            "id": "123456",
+                            "name": "Alexandre Moura",
+                            "email": "alemoura23@hotmail.com",
+                            "created_at": "27/06/22",
+                            "updated_at": "27/06/22"
+                          },
+                          {
+                            "admin": true,
+                            "id": "12345",
+                            "name": "Alexandre Moura",
+                            "email": "alemoura23@hotmail.com",
+                            "created_at": "30/06/22",
+                            "updated_at": "30/06/22"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Usuário sem permissão ou usuário não encontrado",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "user": {
+                            "type": "intenger"
+                          }
+                        },
+                        "example": {
+                          "error": "Você precisa ser admin para listar usuarios"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/users/{userId}": {
+          "get": {
+            "tags": ["Users"],
+            "summary": "Retornar um usuario",
+            "description": "Retornar um usuario",
+            "parameters": [
+              {
+                "- in": "path",
+                "name": "userId",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true,
+                "minimum": 1,
+                "description": "Parameter description in Markdown."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Operação Realizada com Sucesso",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "admin": {
+                            "type": "boolean"
+                          }
+                        },
+                        "example": [
+                          {
+                            "admin": true,
+                            "id": "123456",
+                            "name": "Alexandre",
+                            "email": "alemoura23@hotmail.com",
+                            "created_at": "26/06/22",
+                            "updated_at": "27/06/22"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Usuário  não encontrado",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "user": {
+                            "type": "intenger"
+                          }
+                        },
+                        "example": {
+                          "error": "Usuario não encontrado"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/users/{userId}/admin": {
+          "get": {
+            "tags": ["Users"],
+            "summary": "Mudando usuario para admin",
+            "description": "Mudando usuario para admin",
+            "parameters": [
+              {
+                "- in": "path",
+                "name": "userId",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true,
+                "minimum": 1,
+                "description": "Parameter description in Markdown."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Operação Realizada com Sucesso",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "admin": {
+                            "type": "boolean"
+                          }
+                        },
+                        "example": [
+                          {
+                            "admin": true,
+                            "id": "123456",
+                            "name": "Alexandre",
+                            "email": "alemoura23@hotmail.com",
+                            "created_at": "24/07/22",
+                            "updated_at": "25/07/22"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Usuário  não encontrado",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "user": {
+                            "type": "intenger"
+                          }
+                        },
+                        "example": {
+                          "error": "Usuario não encontrado"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }

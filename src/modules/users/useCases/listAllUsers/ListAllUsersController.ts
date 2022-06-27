@@ -13,6 +13,7 @@ class ListAllUsersController {
      
       const user_id = request.headers.user_id as string;
       const list = this.listAllUsersUseCase.execute({ user_id });
+      console.log(list)
       return response.json(list)
 
     } catch (error) {
